@@ -1,0 +1,36 @@
+/* Variables */
+:root {
+  --primary: #3b82f6;
+  --primary-light: #60a5fa;
+  --secondary: #8b5cf6;
+  --secondary-light: #a78bfa;
+  --bg-dark: #0f172a;
+  --bg-dark-lighter: #1e293b;
+  --text-light: #e2e8f0;
+  --text-muted: #94a3b8;
+  --border-color: #334155;
+}
+
+/* Root Styles */
+.portfolio-root {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-dark-lighter) 50%, var(--border-color) 100%);
+  color: #fff;
+}
+
+/* Navigation */
+.portfolio-nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 50;
+  transition: all 0.3s ease;
+}
+
+.portfolio-nav.nav-scrolled {
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Add all the CSS classes from previous response here */
