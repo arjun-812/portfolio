@@ -22,7 +22,8 @@ import {
   X,
   ArrowUp
 } from 'lucide-react';
-import './gowsikarjun-portfolio.css'; // Assuming you have a CSS file for styles
+import './gowsikarjun-portfolio.css';
+import './styles/tech-tags.css';
 
 interface Skill {
   name: string;
@@ -57,6 +58,36 @@ interface Education {
   location: string;
   highlights: string[];
 }
+
+// Function to get color for tech tags
+const getTechColor = (tech: string): { bg: string; text: string; hover: string } => {
+  const colors: { [key: string]: { bg: string; text: string; hover: string } } = {
+    'React.js': { bg: '#149ECA', text: '#FFFFFF', hover: '#0E7A9B' },
+    'TypeScript': { bg: '#3178C6', text: '#FFFFFF', hover: '#265D9D' },
+    'Node.js': { bg: '#539E43', text: '#FFFFFF', hover: '#407D33' },
+    'Express.js': { bg: '#000000', text: '#FFFFFF', hover: '#333333' },
+    'Next.js': { bg: '#000000', text: '#FFFFFF', hover: '#333333' },
+    'JavaScript': { bg: '#F7DF1E', text: '#000000', hover: '#E6CE1D' },
+    'Python': { bg: '#3776AB', text: '#FFFFFF', hover: '#2B5B85' },
+    'MongoDB': { bg: '#47A248', text: '#FFFFFF', hover: '#388037' },
+    'MySQL': { bg: '#4479A1', text: '#FFFFFF', hover: '#345C7D' },
+    'TensorFlow': { bg: '#FF6F00', text: '#FFFFFF', hover: '#CC5900' },
+    'Flask': { bg: '#444444', text: '#FFFFFF', hover: '#2B2B2B' },
+    'HTML5/CSS3': { bg: '#E34F26', text: '#FFFFFF', hover: '#C44322' },
+    'Tailwind': { bg: '#38B2AC', text: '#FFFFFF', hover: '#2C8F8A' },
+    'GraphQL': { bg: '#E535AB', text: '#FFFFFF', hover: '#B52A87' },
+    'REST APIs': { bg: '#FF5733', text: '#FFFFFF', hover: '#CC4628' },
+    'Docker': { bg: '#2496ED', text: '#FFFFFF', hover: '#1C75BA' },
+    'AWS': { bg: '#FF9900', text: '#000000', hover: '#CC7A00' },
+    'Redis': { bg: '#DC382D', text: '#FFFFFF', hover: '#B02C23' },
+    'PostgreSQL': { bg: '#336791', text: '#FFFFFF', hover: '#264D6B' },
+    'NLP': { bg: '#8E44AD', text: '#FFFFFF', hover: '#703688' },
+    'scikit-learn': { bg: '#F7931E', text: '#FFFFFF', hover: '#C67518' },
+    'Chart.js': { bg: '#FF6384', text: '#FFFFFF', hover: '#CC4F6A' }
+  };
+
+  return colors[tech] || { bg: '#64748B20', text: '#64748B' }; // Default color for unknown tech
+};
 
 const Portfolio: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>('home');
@@ -117,17 +148,14 @@ const Portfolio: React.FC = () => {
     { name: 'GraphQL', level: 75, category: 'Backend' },
     
     // Database
-    { name: 'MongoDB', level: 85, category: 'Database' },
-    { name: 'MySQL', level: 80, category: 'Database' },
-    { name: 'PostgreSQL', level: 78, category: 'Database' },
-    { name: 'Redis', level: 70, category: 'Database' },
+    { name: 'MongoDB', level: 85, category: 'Tools' },
+    { name: 'MySQL', level: 80, category: 'Tools' },
+
+        { name: 'Git/GitHub', level: 90, category: 'Tools' },
+    { name: 'Figma', level: 78, category: 'Tools' }
     
     // Tools & Others
-    { name: 'Git/GitHub', level: 90, category: 'Tools' },
-    { name: 'Docker', level: 75, category: 'Tools' },
-    { name: 'AWS', level: 70, category: 'Tools' },
-    { name: 'Jest', level: 82, category: 'Tools' },
-    { name: 'Figma', level: 78, category: 'Tools' }
+
   ];
 
   const experiences: Experience[] = [
@@ -148,18 +176,18 @@ const Portfolio: React.FC = () => {
       ]
     },
     {
-      title: 'Software Developer Intern',
-      company: 'Tech Solutions Inc',
+      title: 'Machine Learning Research Intern',
+      company: 'Neosoft solutions',
       location: 'Coimbatore, Tamil Nadu',
       period: 'Jan 2023 – May 2023',
-      description: 'Gained hands-on experience in full-stack development and contributed to various client projects.',
-      technologies: ['React.js', 'JavaScript', 'Node.js', 'MongoDB', 'HTML/CSS'],
+      description: 'Led the development of an AI-powered cyberbullying detection system for social media platforms using machine learning and natural language processing.',
+      technologies: ['Python', 'TensorFlow', 'NLP', 'scikit-learn', 'Flask', 'Twitter API'],
       achievements: [
-        'Developed responsive web components using React.js and modern CSS',
-        'Assisted in building RESTful APIs using Node.js and Express',
-        'Participated in code reviews and followed industry best practices',
-        'Contributed to database design and optimization using MongoDB'
-      ]
+        'Developed a machine learning model achieving 94% accuracy in detecting cyberbullying content across social media platforms',
+        'Implemented real-time text analysis using Natural Language Processing for multiple languages',
+        'Created a REST API using Flask for integration with social media platforms',
+        'Built and trained models on large datasets of social media content for improved accuracy'
+      ],
     }
   ];
 
@@ -208,21 +236,6 @@ const Portfolio: React.FC = () => {
       liveUrl: '#',
       githubUrl: '#'
     },
-    {
-      title: 'E-Commerce Marketplace',
-      description: 'Modern e-commerce platform with advanced features including real-time inventory, payment processing, order tracking, and vendor management system.',
-      technologies: ['React.js', 'Node.js', 'MongoDB', 'Stripe API', 'Socket.io', 'AWS S3'],
-      features: [
-        'Multi-vendor marketplace functionality',
-        'Advanced product search and filtering',
-        'Secure payment processing with Stripe',
-        'Real-time order tracking and notifications',
-        'Comprehensive admin dashboard',
-        'Mobile-responsive progressive web app'
-      ],
-      liveUrl: '#',
-      githubUrl: '#'
-    }
   ];
 
   const education: Education[] = [
@@ -482,9 +495,33 @@ const Portfolio: React.FC = () => {
                   <div className="timeline-item__technologies">
                     <h4>Technologies Used:</h4>
                     <div className="tech-tags">
-                      {exp.technologies.map((tech, idx) => (
-                        <span key={idx} className="tech-tag">{tech}</span>
-                      ))}
+                      {exp.technologies.map((tech, idx) => {
+                        const techColor = getTechColor(tech);
+                        return (
+                          <span 
+                            key={idx} 
+                            className="tech-tag"
+                            style={{ 
+                              backgroundColor: techColor.bg, 
+                              color: techColor.text,
+                              transition: 'all 0.3s ease',
+                              cursor: 'default'
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.backgroundColor = techColor.hover;
+                              e.currentTarget.style.transform = 'translateY(-2px)';
+                              e.currentTarget.style.boxShadow = `0 4px 8px rgba(0, 0, 0, 0.2)`;
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.backgroundColor = techColor.bg;
+                              e.currentTarget.style.transform = 'translateY(0)';
+                              e.currentTarget.style.boxShadow = 'none';
+                            }}
+                          >
+                            {tech}
+                          </span>
+                        );
+                      })}
                     </div>
                   </div>
 
@@ -515,13 +552,12 @@ const Portfolio: React.FC = () => {
           </div>
 
           <div className="skills__categories">
-            {['Frontend', 'Backend', 'Database', 'Tools'].map((category) => (
+            {['Frontend', 'Backend', 'Tools'].map((category) => (
               <div key={category} className="skill-category">
                 <div className="skill-category__header">
-                  {category === 'Frontend' && <Globe className="skill-category__icon" />}
-                  {category === 'Backend' && <Server className="skill-category__icon" />}
-                  {category === 'Database' && <Database className="skill-category__icon" />}
-                  {category === 'Tools' && <Code className="skill-category__icon" />}
+                  {category === 'Frontend' && <Globe color="#8d169c" className="skill-category__icon" />}
+                  {category === 'Backend' && <Server color="#8d169c" className="skill-category__icon" />}
+                  {category === 'Tools' && <Code color="#8d169c" className="skill-category__icon" />}
                   <h3>{category}</h3>
                 </div>
                 <div className="skill-category__skills">
@@ -583,12 +619,12 @@ const Portfolio: React.FC = () => {
                   <h3 className="project-card__title">{project.title}</h3>
                   <div className="project-card__links">
                     {project.liveUrl && (
-                      <a href={project.liveUrl} className="project-card__link" aria-label="View live project">
+                      <a href={project.liveUrl} className="project-card__link" title="View Live Demo">
                         <ExternalLink size={20} />
                       </a>
                     )}
                     {project.githubUrl && (
-                      <a href={project.githubUrl} className="project-card__link" aria-label="View source code">
+                      <a href={project.githubUrl} className="project-card__link" title="View Source Code">
                         <Github size={20} />
                       </a>
                     )}
@@ -598,9 +634,35 @@ const Portfolio: React.FC = () => {
                 <p className="project-card__description">{project.description}</p>
                 
                 <div className="project-card__technologies">
-                  {project.technologies.map((tech, idx) => (
-                    <span key={idx} className="tech-tag tech-tag--small">{tech}</span>
-                  ))}
+                  <div className="tech-tags">
+                    {project.technologies.map((tech, idx) => {
+                      const techColor = getTechColor(tech);
+                      return (
+                        <span 
+                          key={idx} 
+                          className="tech-tag tech-tag--small"
+                          style={{ 
+                            backgroundColor: techColor.bg, 
+                            color: techColor.text,
+                            transition: 'all 0.3s ease',
+                            cursor: 'default'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = techColor.hover;
+                            e.currentTarget.style.transform = 'translateY(-2px)';
+                            e.currentTarget.style.boxShadow = `0 4px 8px rgba(0, 0, 0, 0.2)`;
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = techColor.bg;
+                            e.currentTarget.style.transform = 'translateY(0)';
+                            e.currentTarget.style.boxShadow = 'none';
+                          }}
+                        >
+                          {tech}
+                        </span>
+                      );
+                    })}
+                  </div>
                 </div>
 
                 <div className="project-card__features">
@@ -615,20 +677,6 @@ const Portfolio: React.FC = () => {
                   </ul>
                 </div>
 
-                <div className="project-card__actions">
-                  {project.liveUrl && (
-                    <a href={project.liveUrl} className="btn btn--primary btn--small">
-                      <ExternalLink size={16} />
-                      View Live
-                    </a>
-                  )}
-                  {project.githubUrl && (
-                    <a href={project.githubUrl} className="btn btn--secondary btn--small">
-                      <Github size={16} />
-                      Source Code
-                    </a>
-                  )}
-                </div>
               </div>
             ))}
           </div>
@@ -830,7 +878,7 @@ const Portfolio: React.FC = () => {
 
             <div className="footer__links">
               <div className="footer__section">
-                <h4 className="footer__section-title">Quick Links</h4>
+                <h4 className="footer__section-title">Links</h4>
                 <ul className="footer__section-list">
                   <li><button onClick={() => scrollToSection('about')} className="footer__link">About</button></li>
                   <li><button onClick={() => scrollToSection('experience')} className="footer__link">Experience</button></li>
