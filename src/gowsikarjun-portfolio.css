@@ -5505,14 +5505,7 @@ textarea:focus {
 }
 
 /* Performance hint for modern browsers */
-@supports (backdrop-filter: blur(20px)) {
-  .navbar,
-  .hero__social-link,
-  .contact__detail,
-  .project-card {
-    -webkit-backdrop-filter: blur(20px);
-  }
-}
+
 
 /* Container queries for responsive design (future-proofing) */
 @supports (container-type: inline-size) {
